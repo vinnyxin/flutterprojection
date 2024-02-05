@@ -3,6 +3,7 @@ import 'package:projectiongolf/common/calendar_screen.dart';
 import 'package:projectiongolf/Main/caddie_time_screen1.dart';
 import 'package:projectiongolf/common/date_screen.dart';
 import 'package:projectiongolf/common/week_screen.dart';
+import 'package:projectiongolf/Main/caddie_course_screen1.dart';
 
 class CaddieScreen1 extends StatefulWidget {
   const CaddieScreen1({Key? key}) : super(key: key);
@@ -94,7 +95,6 @@ class _CaddieScreen1State extends State<CaddieScreen1> with SingleTickerProvider
                     context,
                     MaterialPageRoute(builder: (context) => CaddieTimeScreen1()),
                   );
-
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
@@ -112,7 +112,10 @@ class _CaddieScreen1State extends State<CaddieScreen1> with SingleTickerProvider
               flex: 6,
               child: ElevatedButton(
                 onPressed: () {
-
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CaddieCourseScreen1()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF1BAA00),

@@ -82,7 +82,7 @@ class _CaddieTimeScreen1State extends State<CaddieTimeScreen1> with SingleTicker
                 ),
                 child: Align(
                   alignment: Alignment.center,
-                  child: Text('캐디시간추가', style: TextStyle(color: Colors.black,
+                  child: Text('조원추가', style: TextStyle(color: Colors.black,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,),),
                 ),

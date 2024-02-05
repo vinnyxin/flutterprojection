@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectiongolf/Main/caddie_course_screen1.dart';
 
 class CaddieTimeScreen2 extends StatefulWidget {
   final List<Widget> caddieWidgets;
@@ -55,6 +56,10 @@ class _CaddieTimeScreen2State extends State<CaddieTimeScreen2> {
               flex: 6,
               child: ElevatedButton(
                 onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CaddieCourseScreen1()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF1BAA00),
