@@ -21,30 +21,32 @@ class _CommonButtonState extends State<CommonButton> {
 
   @override
   Widget build(BuildContext context) {
-    return  ElevatedButton(
-      onPressed: widget.onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
+    return   InkWell(
+      onTap: widget.onPressed,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        width: 300,
+        height: 110,
+        decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: Color(0xFF43721B),),
+          border: Border.all(color: Color(0xFF43721B)),
         ),
-        fixedSize: Size(280, 110),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(widget.imagePath, width: 45, height: 45,),
-          SizedBox(width: 20,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(widget.title,style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold,),),
-              Text(widget.subtitle,style: TextStyle(color: Colors.black, fontSize: 12,),),
-            ],
-          ),
-        ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(widget.imagePath, width: 45, height: 45,),
+            SizedBox(width: 20,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(widget.title,style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold,),),
+                Text(widget.subtitle,style: TextStyle(color: Colors.black, fontSize: 12,),),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

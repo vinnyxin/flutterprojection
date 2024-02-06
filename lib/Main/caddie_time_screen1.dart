@@ -45,36 +45,26 @@ class _CaddieTimeScreen1State extends State<CaddieTimeScreen1> with SingleTicker
         child: DefaultTabController(
           length: 7,
           child: Column(
-
             children: [
               ButtonsTabBar(
                 backgroundColor: Color(0xFF1BAA00),
-                contentPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                contentPadding: EdgeInsets.symmetric(horizontal: 18,vertical: 5),
                 unselectedBackgroundColor: Color(0xFFF1F1F1),
                 labelStyle: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
+                  fontSize: 11,
                 ),
                 unselectedLabelStyle: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
+                  fontSize: 11,
                 ),
-                height: 40,
+                height: 50,
                 tabs: [
                   for (int i = 1; i <= 7; i++)
                     Tab(
-                      text : "$i"
-                      // child: Container(
-                      //   height: 50,
-                      //   width: 40,
-                      //   padding: EdgeInsets.symmetric(horizontal: 11),
-                      //   child: Align(
-                      //     alignment: Alignment.center,
-                      //     child: Text(
-                      //       "$i",
-                      //     ),
-                      //   ),
-                      // ),
+                      text : "$i",
                     ),
                 ],
               ),

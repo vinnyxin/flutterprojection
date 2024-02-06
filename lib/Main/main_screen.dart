@@ -24,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
 
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 70),
+        padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
