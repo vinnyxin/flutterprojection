@@ -3,7 +3,8 @@ import 'package:projectiongolf/Main/caddie_course_screen1.dart';
 
 class CaddieTimeScreen2 extends StatefulWidget {
   final List<Widget> caddieWidgets;
-  const CaddieTimeScreen2({Key? key, required this.caddieWidgets}) : super(key: key);
+  final String? dropdownValue;
+  CaddieTimeScreen2({Key? key, required this.caddieWidgets, this.dropdownValue}) : super(key: key);
 
   @override
   State<CaddieTimeScreen2> createState() => _CaddieTimeScreen2State();
@@ -11,9 +12,21 @@ class CaddieTimeScreen2 extends StatefulWidget {
 
 class _CaddieTimeScreen2State extends State<CaddieTimeScreen2> {
   List<Widget> caddieWidgets = [];
+  final TextEditingController _Controller1 = TextEditingController();
+  final TextEditingController _Controller2 = TextEditingController();
+  String? dropdownValue;
+
+
+  @override
+  void initState() {
+    super.initState();
+    dropdownValue = widget.dropdownValue;
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    print("드롭다운 값 ${widget.dropdownValue}");
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -25,7 +38,8 @@ class _CaddieTimeScreen2State extends State<CaddieTimeScreen2> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: widget.caddieWidgets.map((widget) => _caddile(showCloseButton: false)).toList(),        ),
+          children: widget.caddieWidgets,
+        ),
       ),
       bottomNavigationBar: Container(
         height: 60,
@@ -81,7 +95,8 @@ class _CaddieTimeScreen2State extends State<CaddieTimeScreen2> {
     );
   }
 
-  Widget _caddile({bool showCloseButton = true}) {
+
+  Widget _caddile({required TextEditingController controller1, required TextEditingController controller2, bool showCloseButton = true}) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Stack(
@@ -91,88 +106,116 @@ class _CaddieTimeScreen2State extends State<CaddieTimeScreen2> {
             children: [
               Container(
                 width: 360,
-                height: 100,
+                height: 120,
                 color: Color(0xFFF8F8F8),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 10, horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Row(
                         children: [
                           Container(
-                            width: 100,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            child: Stack(
                               children: [
-                                Text(
-                                  '시작',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15.0,
+                                SizedBox(
+                                  height: 38,
+                                  width: 100,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Color(0xFFE1E1E1), width: 1),
+                                    ),
+                                    child: DropdownButtonFormField<String>(
+                                      value: widget.dropdownValue,
+                                      icon: Icon(Icons.arrow_drop_down),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style: TextStyle(color: Colors.black, fontSize: 12),
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          // widget.dropdownValue = newValue;
+                                        });
+                                      },
+                                      items: <String>['조장','조원']
+                                          .map<DropdownMenuItem<String>>((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                      decoration: InputDecoration(
+                                        hintText: '  조장',
+                                        hintStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Image.asset(
-                                  'images/clock.png',
-                                  width: 15,
-                                  height: 15,
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(width: 15,),
-                          Container(
-                            width: 100,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  '종료',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15.0,
-                                  ),
+                          SizedBox(width: 20,),
+                          SizedBox(
+                            height: 38,
+                            width: 160,
+                            child: TextFormField(
+                              style: TextStyle(fontSize: 12,),
+                              controller: controller1,
+                              cursorWidth: 2,
+                              decoration: InputDecoration(
+                                hintText: '  김유정',
+                                hintStyle: TextStyle(
+                                  color: Color(0xFF000000),
+                                  fontSize: 12,
                                 ),
-                                Image.asset(
-                                  'images/clock.png',
-                                  width: 15,
-                                  height: 15,
+                                contentPadding: EdgeInsets.symmetric(vertical: -5, horizontal: 5),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 15,),
-                      Container(
-                        width: 300,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
-                        child: Row(
-                          children: [
-                            SizedBox(width: 15,),
-                            Text(
-                              '하우스캐디 (주중 / 주말)',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      SizedBox(
+                        height: 38,
+                        width: 280,
+                        child: TextFormField(
+                          style: TextStyle(fontSize: 12,),
+                          controller: controller2,
+                          cursorWidth: 2,
+                          decoration: InputDecoration(
+                            hintText: '  010-3384-8944',
+                            hintStyle: TextStyle(
+                              color: Color(0xFF000000),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
+                            contentPadding: EdgeInsets.symmetric(vertical: -5, horizontal: 5),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1),
+                            ),
+                          ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -196,4 +239,7 @@ class _CaddieTimeScreen2State extends State<CaddieTimeScreen2> {
       ),
     );
   }
+
+
+
 }

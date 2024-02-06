@@ -24,7 +24,7 @@ class _CommonButtonState extends State<CommonButton> {
     return  ElevatedButton(
       onPressed: widget.onPressed,
       style: ElevatedButton.styleFrom(
-        primary: Colors.white,
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(color: Color(0xFF43721B),),
