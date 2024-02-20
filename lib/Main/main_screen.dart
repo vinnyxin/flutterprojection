@@ -11,7 +11,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 3;
+  // int _currentIndex = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
 
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 50),
+          padding: const EdgeInsets.only(bottom: 70,right: 50,left: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -41,22 +41,22 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
 
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(icon: Image.asset("images/home.png", width: 30, height: 30,),label: "홈"),
-            BottomNavigationBarItem(icon: Image.asset("images/heart.png", width: 30, height: 30,),label: "보기"),
-            BottomNavigationBarItem(icon: Image.asset("images/check.png", width: 30, height: 30,),label: "관리"),
-            BottomNavigationBarItem(icon: Image.asset("images/flag.png", width: 30, height: 30,),label: "설정",),
-          ],
-          selectedItemColor: Colors.green,
-        )
+        // bottomNavigationBar: BottomNavigationBar(
+        //   type: BottomNavigationBarType.fixed,
+        //   currentIndex: _currentIndex,
+        //   onTap: (index) {
+        //     setState(() {
+        //       _currentIndex = index;
+        //     });
+        //   },
+        //   items: [
+        //     BottomNavigationBarItem(icon: Image.asset("images/home.png", width: 30, height: 30,),label: "홈"),
+        //     BottomNavigationBarItem(icon: Image.asset("images/heart.png", width: 30, height: 30,),label: "보기"),
+        //     BottomNavigationBarItem(icon: Image.asset("images/check.png", width: 30, height: 30,),label: "관리"),
+        //     BottomNavigationBarItem(icon: Image.asset("images/green_flag.png", width: 30, height: 30,),label: "설정",),
+        //   ],
+        //   selectedItemColor: Color(0xFF1BAA00),
+        // )
     );
   }
 }
