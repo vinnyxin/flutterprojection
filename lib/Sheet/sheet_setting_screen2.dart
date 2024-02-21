@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:caddycum/Common/calendar_screen.dart';
+import 'package:caddycum/Common/floating_button.dart';
 
 class SheetSettingScreen2 extends StatefulWidget {
   const SheetSettingScreen2({super.key});
@@ -31,10 +32,10 @@ class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
         ),
 
         floatingActionButton: Container(
-          width: 50,
-          height: 50,
+          width: 40,
+          height: 40,
           child: FloatingActionButton(
-            child:Icon(Icons.add,color: Colors.white,size: 40,),
+            child:Icon(Icons.add,color: Colors.white,size: 35,),
             backgroundColor:Color(0xFF1BAA00),
             onPressed: () {
               setState(() {
@@ -52,6 +53,7 @@ class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
             ),
           ),
         ),
+
     body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -131,59 +133,60 @@ class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
         return Stack(
           children: [
             Positioned(
-              bottom:130,
-              right: 20,
+              bottom:230,
+              right: 50,
               child:Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
                       padding: EdgeInsets.all(10),
-                      width: 150,
-                      height: 120,
+                      width: 190,
+                      height: 250,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Image.asset('images/contact.png', width: 30, height: 30),
-                                const SizedBox(width: 20),
-                                Text(
-                                  "사진",
-                                  style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold,),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          GestureDetector(
-                            onTap: () {
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Image.asset('images/caddie.png', width: 30, height: 30),
-                                const SizedBox(width: 20),
-                                Text(
-                                  "이미지",
-                                  style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold,),
-                                ),
-                              ],
-                            ),
-                          ),
+                          FloatingButton(image: 'images/contact.png', name: '구성', ),
+                          FloatingButton(image: 'images/caddie.png', name: '캐디'),
+                          FloatingButton(image: 'images/reservation.png', name: '예약시트'),
+                          FloatingButton(image: 'images/generate.png', name: '생성시간'),
+                          FloatingButton(image: 'images/functionsetting.png', name: '기능설정'),
+                          FloatingButton(image: 'images/golfcourse.png', name: '골프장시설'),
                         ],
                       ),
                     ),
                   ]
               ),
             ),
-            Positioned(bottom:80,right:16,
+            Positioned(
+              bottom:130,
+              right: 50,
+              child:Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      width: 190,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FloatingButton(image: 'images/schedule.png', name: '일정변경', ),
+                          FloatingButton(image: 'images/tomorrow.png', name: '내일 날짜로 배정'),
+                        ],
+                      ),
+                    ),
+                  ]
+              ),
+            ),
+            Positioned(bottom:76,right:12,
                 child: FloatingActionButton.small(onPressed: (){
                   setState(() {
                     _isCrossIconVisible = !_isCrossIconVisible;
@@ -194,7 +197,7 @@ class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)
                   ),
-                  child: Icon(Icons.close_outlined),
+                  child: Icon(Icons.close_outlined,color: Color(0xFF1BAA00),),
                 ))
           ],
 
@@ -202,4 +205,5 @@ class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
       },
     );
   }
+
 }
