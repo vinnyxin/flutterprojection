@@ -10,47 +10,81 @@ class SheetSettingScreen1 extends StatefulWidget {
 class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now();
-  TimeOfDay? _startTime;
-  TimeOfDay? _endTime;
-  bool _isSelected1 = true;
-  bool _isSelected2 = true;
-  String? dropdownValue;
-  List<Widget> dynamicWidgets = [];
+  // TimeOfDay? _startTime;
+  // TimeOfDay? _endTime;
+  // bool _isSelected1 = true;
+  // bool _isSelected2 = true;
+  // String? dropdownValue;
+  // List<Widget> dynamicWidgets = [];
   int dynamicWidgetCount = 1;
+  List<bool> _isSelectedList = [true, true];
+  List<TimeOfDay?> _startTimeList = [];
+  List<TimeOfDay?> _endTimeList = [];
+  List<String?> _dropdownValueList = [];
 
-  Future<void> _StartTimePicker(BuildContext context) async {
-    final TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now()
+
+
+  Future<void> _showStartDatePicker(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _startDate,
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2025),
     );
-    if (pickedTime != null) {
+    if (picked != null) {
       setState(() {
-        _startTime = pickedTime;
+        _startDate = picked;
       });
     }
   }
 
-  Future<void> _EndTimePicker(BuildContext context) async {
+  Future<void> _showEndDatePicker(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _endDate,
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null) {
+      setState(() {
+        _endDate = picked;
+      });
+    }
+  }
+
+  Future<void> _showStartTimePicker(BuildContext context, int index) async {
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: _startTimeList[index] ?? TimeOfDay.now(),
     );
     if (pickedTime != null) {
       setState(() {
-        _endTime = pickedTime;
+        _startTimeList[index] = pickedTime;
+      });
+    }
+  }
+
+  Future<void> _showEndTimePicker(BuildContext context, int index) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: _endTimeList[index] ?? TimeOfDay.now(),
+    );
+    if (pickedTime != null) {
+      setState(() {
+        _endTimeList[index] = pickedTime;
       });
     }
   }
 
   void _toggleSelection1() {
     setState(() {
-      _isSelected1 = !_isSelected1;
+      _isSelectedList[0] = !_isSelectedList[0];
     });
   }
 
   void _toggleSelection2() {
     setState(() {
-      _isSelected2 = !_isSelected2;
+      _isSelectedList[1] = !_isSelectedList[1];
     });
   }
 
@@ -59,7 +93,9 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
     super.initState();
     _startDate = DateTime(2023, 9, 4);
     _endDate = DateTime(2024, 9, 3);
-
+    _startTimeList = List.generate(1, (index) => null);
+    _endTimeList = List.generate(1, (index) => null);
+    _dropdownValueList = List.generate(1, (index) => null);
   }
 
   @override
@@ -153,7 +189,7 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
                         decoration: BoxDecoration(
-                          color: _isSelected1 ? Color(0xFF1BAA00) : Color(0xFFC7C7C7),
+                          color: _isSelectedList[0] ? Color(0xFF1BAA00) : Color(0xFFC7C7C7),
                           borderRadius: BorderRadius.circular(7),
                         ),
                         child: Text('S코스',style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold,),),),
@@ -164,7 +200,7 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
                       child: Container(
                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
                           decoration: BoxDecoration(
-                            color: _isSelected2 ? Color(0xFF1BAA00) : Color(0xFFC7C7C7),
+                            color: _isSelectedList[1] ? Color(0xFF1BAA00) : Color(0xFFC7C7C7),
                             borderRadius: BorderRadius.circular(7),
                           ),
                           child: Text('G코스',style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold,),)),
@@ -172,12 +208,8 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
                   ],
                 ),
                 SizedBox(height: 30,),
-            Column(
-              children: List.generate(
-                dynamicWidgetCount,
-                    (index) => _buildDynamicWidget(index + 1),
-              ),
-            ),
+                for (var i = 0; i < dynamicWidgetCount; i++)
+                  _buildDynamicWidget(i),
               ],
             ),
           ),
@@ -236,39 +268,18 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
   }
 
 
-  void _showStartDatePicker(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _startDate,
-      firstDate: DateTime(2023),
-      lastDate: DateTime(2025),
-    );
-    if (picked != null){
-      setState(() {
-        _startDate = picked;
-      });
-    }
-  }
-
-  void _showEndDatePicker(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _endDate,
-      firstDate: DateTime(2023),
-      lastDate: DateTime(2025),
-    );
-    if (picked != null){
-      setState(() {
-        _endDate = picked;
-      });
-    }
-  }
-
-  void _addDynamicWidget(){
+  void _addDynamicWidget() {
     setState(() {
-      dynamicWidgetCount++;
+      dynamicWidgetCount += 1;
+      _startTimeList.add(null);
+      _endTimeList.add(null);
+      _dropdownValueList.add(null);
+      _isSelectedList.add(true);
     });
   }
+
+
+
 
   Widget _buildDynamicWidget(int index){
     return Column(
@@ -276,11 +287,11 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
           Container(
             child: Row(
                 children: [
-                  Expanded(child: Text('$index부',style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold,),)),
+                  Expanded(child: Text('${index + 1}부',style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold,),)),
                   SizedBox(width: 105,),
                   GestureDetector(
                     onTap: () {
-                      _StartTimePicker(context);
+                      _showStartTimePicker(context, index);
                     },
                     child: Container(
                       width: 105,
@@ -296,10 +307,12 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
-                              _startTime != null ? '${_startTime!.hour.toString().padLeft(2, '0')}:${_startTime!.minute.toString().padLeft(2, '0')}' : '시작',
+                              _startTimeList.length > index && _startTimeList[index] != null // 修改处
+                                  ? '${_startTimeList[index]!.hour.toString().padLeft(2, '0')}:${_startTimeList[index]!.minute.toString().padLeft(2, '0')}'
+                                  : '시작',
                               style: TextStyle(color: Colors.black, fontSize: 12),
                             ),
-                            _startTime != null ? SizedBox.shrink() : Image.asset('images/clock.png',width: 25,height: 25,),
+                            _startTimeList.length > index && _startTimeList[index] != null ? SizedBox.shrink() : Image.asset('images/clock.png', width: 25, height: 25),
                           ],
                         ),
                       ),
@@ -308,7 +321,7 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
                   SizedBox(width: 15,),
                   GestureDetector(
                     onTap: () {
-                      _EndTimePicker(context);
+                      _showEndTimePicker(context, index);
                     },
                     child: Container(
                       width: 105,
@@ -324,10 +337,12 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
-                              _endTime != null ? '${_endTime!.hour.toString().padLeft(2, '0')}:${_endTime!.minute.toString().padLeft(2, '0')}' : '종료',
+                              _endTimeList.length > index && _endTimeList[index] != null // 修改处
+                                  ? '${_endTimeList[index]!.hour.toString().padLeft(2, '0')}:${_endTimeList[index]!.minute.toString().padLeft(2, '0')}'
+                                  : '종료',
                               style: TextStyle(color: Colors.black, fontSize: 12),
                             ),
-                            _endTime != null ? SizedBox.shrink() : Image.asset('images/clock.png',width: 25,height: 25,),
+                            _endTimeList.length > index && _endTimeList[index] != null ? SizedBox.shrink() : Image.asset('images/clock.png', width: 25, height: 25),
                           ],
                         ),
                       ),
@@ -350,14 +365,14 @@ class _SheetSettingScreen1State extends State<SheetSettingScreen1> {
                     color: Colors.white,
                   ),
                   child: DropdownButtonFormField<String>(
-                    value: dropdownValue,
+                    value: _dropdownValueList.length > index ? _dropdownValueList[index] : null, // 修改处
                     icon: Icon(Icons.arrow_drop_down),
                     iconSize: 24,
                     elevation: 16,
                     style: TextStyle(color: Colors.black, fontSize: 12),
                     onChanged: (String? newValue) {
                       setState(() {
-                        dropdownValue = newValue;
+                        _dropdownValueList[index] = newValue;
                       });
                     },
                     items: <String>['7분', '7-10분', '10-14분', '14분이상']

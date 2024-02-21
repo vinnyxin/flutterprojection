@@ -9,7 +9,10 @@ class SheetSettingScreen2 extends StatefulWidget {
 }
 
 class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
+  bool _isCrossIconVisible = false;
+  bool _isPopupOpen = false;
   int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +28,29 @@ class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
               ),
             ),
           ],
+        ),
+
+        floatingActionButton: Container(
+          width: 50,
+          height: 50,
+          child: FloatingActionButton(
+            child:Icon(Icons.add,color: Colors.white,size: 40,),
+            backgroundColor:Color(0xFF1BAA00),
+            onPressed: () {
+              setState(() {
+                _isCrossIconVisible = !_isCrossIconVisible;
+              });
+              if (_isCrossIconVisible) {
+                _showTranslatePopup(context);
+                _isPopupOpen = true;
+              } else {
+                _isPopupOpen = false;
+              }
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
         ),
     body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -75,8 +101,7 @@ class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
             ]
             ),
           ),
-          SizedBox(height: 20,),
-          Expanded(child: CalendarScreen()),
+          Expanded(child: SingleChildScrollView(child: CustomCalendar())),
         ],
       ),
     ),
@@ -96,6 +121,85 @@ class _SheetSettingScreen2State extends State<SheetSettingScreen2> {
       ],
       selectedItemColor: Color(0xFF1BAA00),
     )
+    );
+  }
+
+  void _showTranslatePopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              bottom:130,
+              right: 20,
+              child:Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      width: 150,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset('images/contact.png', width: 30, height: 30),
+                                const SizedBox(width: 20),
+                                Text(
+                                  "사진",
+                                  style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold,),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          GestureDetector(
+                            onTap: () {
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset('images/caddie.png', width: 30, height: 30),
+                                const SizedBox(width: 20),
+                                Text(
+                                  "이미지",
+                                  style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold,),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]
+              ),
+            ),
+            Positioned(bottom:80,right:16,
+                child: FloatingActionButton.small(onPressed: (){
+                  setState(() {
+                    _isCrossIconVisible = !_isCrossIconVisible;
+                    Navigator.pop(context);
+                  });
+                },
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Icon(Icons.close_outlined),
+                ))
+          ],
+
+        );
+      },
     );
   }
 }
