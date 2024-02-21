@@ -13,7 +13,8 @@ class _CaddieTimeScreen1State extends State<CaddieTimeScreen1> with SingleTicker
   late TabController tabController;
   List<Widget> caddieWidgets = [];
   String? dropdownValue;
-  var caddyInfo = [];
+
+
   @override
   void initState() {
     super.initState();
@@ -292,18 +293,18 @@ class _CaddieTimeScreen1State extends State<CaddieTimeScreen1> with SingleTicker
             ],
           ),
           if (showCloseButton)
-              Positioned(
-                top: -20,
-                right: -20,
-                child: IconButton(
-                  icon: Image.asset('images/close.png',width: 30, height: 30,),
-                  onPressed: () {
-                    setState(() {
-                      caddieWidgets.removeLast();
-                    });
-                  },
-                ),
+            Positioned(
+              top: -20,
+              right: -20,
+              child: IconButton(
+                icon: Image.asset('images/close.png',width: 30, height: 30,),
+                onPressed: () {
+                  setState(() {
+                    caddieWidgets.removeLast();
+                  });
+                },
               ),
+            ),
         ],
       ),
     );
